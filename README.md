@@ -1,1 +1,1 @@
-Arsenal para o Agent Hub
+Updated README: Arsenal for Agent Hub. Genesis Protocol complete. The universe has begun.

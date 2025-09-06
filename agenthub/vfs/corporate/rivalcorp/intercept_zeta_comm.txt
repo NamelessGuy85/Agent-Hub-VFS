@@ -1,0 +1,1 @@
+ZetaTech is in chaos. Their network is bleeding. The agent who breached them did us a favor. Task: analyze their outbound traffic for any data on 'Alpine'.
