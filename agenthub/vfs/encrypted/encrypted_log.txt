@@ -1,0 +1,1 @@
+Secret logs of the agents, encrypted for safety.
