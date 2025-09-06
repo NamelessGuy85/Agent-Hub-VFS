@@ -4,138 +4,138 @@ import datetime
 import string
 import time
 
-# --- CONFIGURAÇÃO DO UNIVERSO ---
+# --- CONFIGURAÇÃO DO UNIVERSO (LOCALIZADO) ---
 # Altere estes valores para moldar a sua realidade
-BASE_DIR = "Agent-Hub-VFS-Generated"
+BASE_DIR = "Agent-Hub-VFS-Gerado"
 NUM_CORP_FILES = 2500
 NUM_LORE_FILES = 500
 NUM_MISC_FILES = 1000
 TOTAL_FILES = NUM_CORP_FILES + NUM_LORE_FILES + NUM_MISC_FILES
 
-# --- ELEMENTOS NARRATIVOS ---
-CORPORATIONS = ["ZetaTech", "RivalCorp", "OmniGen", "Aetherion"]
-PROJECTS = ["Alpine", "Odyssey", "Helios", "Nyx"]
-KEY_PERSONNEL = ["Dr. Aris", "Kaelen", "Unit 734", "The Archivist"]
-CONCEPTS = ["Phantoms", "Echoes", "The Signal", "The Glitch"]
+# --- ELEMENTOS NARRATIVOS (LOCALIZADO) ---
+CORPORACOES = ["ZetaTech", "CorpRival", "OmniGen", "Aetherion"]
+PROJECTOS = ["Alpino", "Odisseia", "Helios", "Nyx"]
+PESSOAL_CHAVE = ["Dr. Aris", "Kaelen", "Unidade 734", "O Arquivista"]
+CONCEITOS = ["Fantasmas", "Ecos", "O Sinal", "A Falha"]
 
 # --- GERADORES DE CONTEÚDO ---
 
-def generate_random_text(length=100):
+def gerar_texto_aleatorio(comprimento=100):
     """Gera texto aleatório para preencher ficheiros."""
     chars = string.ascii_letters + string.digits + " \n\t."
-    return ''.join(random.choice(chars) for _ in range(length))
+    return ''.join(random.choice(chars) for _ in range(comprimento))
 
-def generate_timestamp():
+def gerar_timestamp():
     """Cria um timestamp no formato de log."""
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
 
-def generate_log_entry():
+def gerar_entrada_log():
     """Gera uma linha de log de sistema variada."""
-    log_levels = ["INFO", "WARNING", "ERROR", "CRITICAL", "DEBUG"]
-    services = ["auth.service", "kernel.sys", "network.manager", "cron.job", "api.v3"]
-    messages = [
-        "User authentication successful", "Failed login attempt", "System memory approaching limit",
-        "Connection timed out", f"Executing scheduled task {random.randint(1000, 9999)}",
-        f"Data packet received from {random.randint(1, 255)}.{random.randint(1, 255)}.{random.randint(1, 255)}.{random.randint(1, 255)}",
-        f"NULL pointer exception at memory address 0x{random.randint(0, 0xFFFFFFFF):08X}",
-        "Firewall rule #4815 blocked an incoming connection."
+    niveis_log = ["INFO", "AVISO", "ERRO", "CRITICO", "DEBUG"]
+    servicos = ["auth.service", "kernel.sys", "network.manager", "cron.job", "api.v3"]
+    mensagens = [
+        "Autenticação de utilizador bem-sucedida", "Tentativa de login falhada", "Memória do sistema a aproximar-se do limite",
+        "Tempo de ligação esgotado", f"A executar tarefa agendada {random.randint(1000, 9999)}",
+        f"Pacote de dados recebido de {random.randint(1, 255)}.{random.randint(1, 255)}.{random.randint(1, 255)}.{random.randint(1, 255)}",
+        f"Exceção de ponteiro NULO no endereço de memória 0x{random.randint(0, 0xFFFFFFFF):08X}",
+        "Regra de firewall #4815 bloqueou uma ligação de entrada."
     ]
-    return f"{generate_timestamp()} [{{random.choice(log_levels)}}] ({{random.choice(services)}}): {{random.choice(messages)}}\n"
+    return f"{gerar_timestamp()} [{random.choice(niveis_log)}] ({random.choice(servicos)}): {random.choice(mensagens)}\n"
 
-def generate_email():
+def gerar_email():
     """Gera um e-mail corporativo fictício."""
-    sender_corp = random.choice(CORPORATIONS)
-    recipient_corp = random.choice(CORPORATIONS)
-    sender = f"{{random.choice(KEY_PERSONNEL).lower().replace(' ', '.')}}@{{sender_corp.lower()}}.com"
-    recipient = f"{{''.join(random.choices(string.ascii_lowercase, k=5))}}@{{recipient_corp.lower()}}.com"
+    corp_remetente = random.choice(CORPORACOES)
+    corp_destinatario = random.choice(CORPORACOES)
+    remetente = f"{random.choice(PESSOAL_CHAVE).lower().replace(' ', '.')}@{corp_remetente.lower()}.com"
+    destinatario = f"{''.join(random.choices(string.ascii_lowercase, k=5))}@{corp_destinatario.lower()}.com"
 
-    subjects = [
-        f"URGENT: Regarding Project {{random.choice(PROJECTS)}}",
-        "Weekly Performance Review", "Server Maintenance Downtime",
-        f"Suspicious activity detected on node {{random.randint(1, 100)}}",
-        f"Re: Inquiry about the {{random.choice(CONCEPTS)}}"
+    assuntos = [
+        f"URGENTE: Relativamente ao Projeto {random.choice(PROJECTOS)}",
+        "Revisão de Desempenho Semanal", "Paragem para Manutenção do Servidor",
+        f"Atividade suspeita detetada no nó {random.randint(1, 100)}",
+        f"Re: Pergunta sobre os {random.choice(CONCEITOS)}"
     ]
     
     # Adicionar pistas narrativas
-    body_fragments = [
-        "We need to discuss the implications of the latest findings.",
-        "Stop mentioning the 'Phantoms' in open comms. We use designated channels for a reason.",
-        "Have you seen the latest report from Dr. Aris? It's... concerning.",
-        "RivalCorp is getting too close to the truth about Alpine.",
-        "The server farm in sector Gamma went dark. No logs, just... silence. It's happening again.",
-        "Delete this email after reading."
+    fragmentos_corpo = [
+        "Precisamos de discutir as implicações das últimas descobertas.",
+        "Parem de mencionar os 'Fantasmas' em comunicações abertas. Usamos canais designados por uma razão.",
+        "Já viu o último relatório do Dr. Aris? É... preocupante.",
+        "A CorpRival está a chegar demasiado perto da verdade sobre o Alpino.",
+        "A quinta de servidores no setor Gama ficou em silêncio. Sem logs, apenas... silêncio. Está a acontecer de novo.",
+        "Apague este e-mail depois de ler."
     ]
 
-    body = f"From: {{sender}}\nTo: {{recipient}}\nSubject: {{random.choice(subjects)}}\n\n"
-    body += f"All,\n\n{{random.choice(body_fragments)}}\n\n{{generate_random_text(random.randint(200, 500))}}\n\nRegards."
-    return body
+    corpo = f"De: {remetente}\nPara: {destinatario}\nAssunto: {random.choice(assuntos)}\n\n"
+    corpo += f"A todos,\n\n{random.choice(fragmentos_corpo)}\n\n{gerar_texto_aleatorio(random.randint(200, 500))}\n\nCumprimentos."
+    return corpo
 
 # --- FUNÇÃO PRINCIPAL DE CRIAÇÃO ---
 
-def create_file_with_content(path, content_generator):
+def criar_ficheiro_com_conteudo(path, gerador_conteudo):
     """Cria um ficheiro com conteúdo gerado, garantindo que o diretório exista."""
     try:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8", errors="ignore") as f:
-            f.write(content_generator())
+            f.write(gerador_conteudo())
         return True
     except Exception as e:
-        # print(f"Could not create file {{path}}: {{e}}")
+        # print(f"Não foi possível criar o ficheiro {path}: {e}")
         return False
 
 def main():
     """Ponto de entrada do gerador de universo."""
     print("--- PROTOCOLO BIG BANG INICIADO ---")
-    print(f"Forjando um universo com {{TOTAL_FILES}} ficheiros em '{{BASE_DIR}}'...")
+    print(f"A forjar um universo com {TOTAL_FILES} ficheiros em '{BASE_DIR}'...")
     
     if os.path.exists(BASE_DIR):
-        print(f"AVISO: O diretório '{{BASE_DIR}}' já existe. Ficheiros podem ser sobrescritos.")
+        print(f"AVISO: O diretório '{BASE_DIR}' já existe. Ficheiros podem ser sobrescritos.")
     
-    file_count = 0
-    start_time = time.time()
+    contagem_ficheiros = 0
+    tempo_inicio = time.time()
 
     # Gerar ficheiros corporativos (logs, emails, relatórios)
     for i in range(NUM_CORP_FILES):
-        corp = random.choice(CORPORATIONS)
-        file_type = random.choice(["logs", "emails", "reports", "personnel"])
-        year = random.randint(2020, 2025)
-        month = random.randint(1, 12)
+        corp = random.choice(CORPORACOES)
+        tipo_ficheiro = random.choice(["logs", "emails", "relatorios", "pessoal"])
+        ano = random.randint(2020, 2025)
+        mes = random.randint(1, 12)
         
-        if file_type == "logs":
-            path = os.path.join(BASE_DIR, "corporate", corp, "servers", f"server-{{random.randint(1,20)}}", "logs", str(year), str(month), f"{{generate_timestamp().split(' ')[0]}}.log")
-            create_file_with_content(path, lambda: "".join(generate_log_entry() for _ in range(random.randint(50, 500))))
+        if tipo_ficheiro == "logs":
+            path = os.path.join(BASE_DIR, "corporativo", corp, "servidores", f"servidor-{random.randint(1,20)}", "logs", str(ano), str(mes), f"{gerar_timestamp().split(' ')[0]}.log")
+            criar_ficheiro_com_conteudo(path, lambda: "".join(gerar_entrada_log() for _ in range(random.randint(50, 500))))
         
-        elif file_type == "emails":
-            path = os.path.join(BASE_DIR, "corporate", corp, "comms", "internal", str(year), f"email_archive_{{i}}.eml")
-            create_file_with_content(path, generate_email)
+        elif tipo_ficheiro == "emails":
+            path = os.path.join(BASE_DIR, "corporativo", corp, "comms", "interno", str(ano), f"arquivo_email_{i}.eml")
+            criar_ficheiro_com_conteudo(path, gerar_email)
 
-        file_count += 1
-        print(f"\rProgresso: [{{file_count}}/{{TOTAL_FILES}}]", end="")
+        contagem_ficheiros += 1
+        print(f"\rProgresso: [{contagem_ficheiros}/{TOTAL_FILES}]", end="")
 
     # Gerar ficheiros de lore (fragmentos, manifestos)
     for i in range(NUM_LORE_FILES):
-        file_type = random.choice(["fragments", "manifestos", "encrypted"])
-        if file_type == "encrypted":
-            path = os.path.join(BASE_DIR, "lore", file_type, f"data_shard_{{random.randint(1000,9999)}}.enc")
-            create_file_with_content(path, lambda: f"BEGIN PGP MESSAGE-----\n{{generate_random_text(random.randint(1000, 5000))}}\n-----END PGP MESSAGE")
+        tipo_ficheiro = random.choice(["fragmentos", "manifestos", "encriptados"])
+        if tipo_ficheiro == "encriptados":
+            path = os.path.join(BASE_DIR, "lore", tipo_ficheiro, f"fragmento_dados_{random.randint(1000,9999)}.enc")
+            criar_ficheiro_com_conteudo(path, lambda: f"BEGIN PGP MESSAGE-----\n{gerar_texto_aleatorio(random.randint(1000, 5000))}\n-----END PGP MESSAGE")
         else:
-            path = os.path.join(BASE_DIR, "lore", file_type, f"fragment_{{i}}.txt")
-            create_file_with_content(path, lambda: f"// FRAGMENT RECOVERED\n// SUBJECT: {{random.choice(CONCEPTS)}}\n\n{{generate_random_text(300)}}")
+            path = os.path.join(BASE_DIR, "lore", tipo_ficheiro, f"fragmento_{i}.txt")
+            criar_ficheiro_com_conteudo(path, lambda: f"// FRAGMENTO RECUPERADO\n// ASSUNTO: {random.choice(CONCEITOS)}\n\n{gerar_texto_aleatorio(300)}")
         
-        file_count += 1
-        print(f"\rProgresso: [{{file_count}}/{{TOTAL_FILES}}]", end="")
+        contagem_ficheiros += 1
+        print(f"\rProgresso: [{contagem_ficheiros}/{TOTAL_FILES}]", end="")
 
     # Gerar ficheiros diversos (pessoais, temporários)
     for i in range(NUM_MISC_FILES):
         path = os.path.join(BASE_DIR, "misc", "temp", ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)) + ".tmp")
-        create_file_with_content(path, generate_random_text)
-        file_count += 1
-        print(f"\rProgresso: [{{file_count}}/{{TOTAL_FILES}}]", end="")
+        criar_ficheiro_com_conteudo(path, gerar_texto_aleatorio)
+        contagem_ficheiros += 1
+        print(f"\rProgresso: [{contagem_ficheiros}/{TOTAL_FILES}]", end="")
 
-    end_time = time.time()
+    tempo_fim = time.time()
     print(f"\n\n--- BIG BANG CONCLUÍDO ---")
-    print(f"Realidade forjada em {{end_time - start_time:.2f}} segundos.")
-    print(f"Explore o seu novo universo em '{{BASE_DIR}}'.")
+    print(f"Realidade forjada em {tempo_fim - tempo_inicio:.2f} segundos.")
+    print(f"Explore o seu novo universo em '{BASE_DIR}'.")
 
 
 if __name__ == "__main__":
